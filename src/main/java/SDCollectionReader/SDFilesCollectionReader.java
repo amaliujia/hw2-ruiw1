@@ -83,7 +83,7 @@ public class SDFilesCollectionReader extends CollectionReader_ImplBase {
    
    if(currentindex >= files.get(fileindex).length()){
      fileindex++;
-     curren)tindex = 0;
+     currentindex = 0;
      if(fileindex >= files.size()){
        return false;
      }else{
