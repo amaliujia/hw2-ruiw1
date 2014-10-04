@@ -1,6 +1,7 @@
 package SDCollectionReader;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -15,31 +16,32 @@ import org.apache.uima.util.Progress;
 
 public class SDFilesCollectionReader extends CollectionReader_ImplBase {
 
-  public static String inputDirectory;
-  public ArrayList<File> files;
-  public ArrayList<String> contents;
-  public int fileindex, currentindex;
-  public boolean hasFiles;
+  private File inputfile;
+  private boolean isFirst = true;
+  private int index;
+  private int num;
+  private String[] sentencs;
   
   /**
    * 
    */
   public void initialize(){
-    inputDirectory = (String)getConfigParameterValue("InputFileDirectory");
-    files = new ArrayList<File>();
-    contents = new ArrayList<String>();
-    File directorFile = new File(inputDirectory);
-    File[] fs = directorFile.listFiles();
-    for(int i = 0; i < fs.length; i++){
-      if(!fs[i].isDirectory()){
-        files.add(fs[i]);
+    inputfile = new File((String)getConfigParameterValue("InputFile"));
+    String text = "";
+    try {
+      Scanner scanner = new Scanner(inputfile);
+      int i = 0;
+      while(scanner.hasNext()){
+         text += scanner.nextLine();
+         text += "\n";
+         i++;
       }
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
     }
-    fileindex = 0;
-    currentindex = 0;
-    if(files.size() == 0){
-      hasFiles = false;
-    }
+    sentencs = text.split("\\n");
+    num = sentencs.length;
+    index = 0;
   }
   
   /**
@@ -49,49 +51,20 @@ public class SDFilesCollectionReader extends CollectionReader_ImplBase {
     JCas jcas;
     try {
       jcas = aCAS.getJCas();
-    } catch (CASException e) {
+    } catch (Exception e) {
       throw new CollectionException(e);
     }
-    if(currentindex == 0){
-      File thisFile = files.get(fileindex);
-      Scanner scanner = new Scanner(thisFile);
-      String cache = new String();
-      while(scanner.hasNext()){
-        cache += (scanner.nextLine() + "\n");
-      }
-      String[] strings = cache.split("\\n");
-      for(int i = 0; i < strings.length; i++){
-        contents.add(strings[i]);
-      }
-      // Do something.
-      
-      currentindex++;
-      return;
-    }
+    // read all sentences into a string and put it into CAS
     
-    //TODO: do something 
-    
-    currentindex++;
-    return;
+
+   // System.out.println("Reader");
+    jcas.setDocumentText(sentencs[index]);
+    index++;
   }
 
   @Override
   public boolean hasNext() throws IOException, CollectionException {
-   if(!hasFiles){
-     return false;
-   }
-   
-   if(currentindex >= files.get(fileindex).length()){
-     fileindex++;
-     currentindex = 0;
-     if(fileindex >= files.size()){
-       return false;
-     }else{
-       return true;
-     }
-   }
-   
-    return true;
+    return index < 100;
   }
 
   @Override

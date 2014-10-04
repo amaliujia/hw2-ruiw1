@@ -3,13 +3,13 @@
   <frameworkImplementation>org.apache.uima.java</frameworkImplementation>
   <implementationName>SDCollectionReader.SDFilesCollectionReader</implementationName>
   <processingResourceMetaData>
-    <name>SDCollectionReader</name>
+    <name>SDCollectionReaderDescriptor</name>
     <description/>
     <version>1.0</version>
     <vendor/>
     <configurationParameters>
       <configurationParameter>
-        <name>InputFileDirectory</name>
+        <name>InputFile</name>
         <type>String</type>
         <multiValued>false</multiValued>
         <mandatory>true</mandatory>
@@ -18,7 +18,7 @@
     <configurationParameterSettings/>
     <typeSystemDescription>
       <imports>
-        <import location="deiis_types.xml"/>
+        <import location="../TypeSystems/SDTypeSystemxml"/>
       </imports>
     </typeSystemDescription>
     <typePriorities/>
