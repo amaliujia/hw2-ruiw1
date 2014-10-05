@@ -18,6 +18,7 @@ import org.apache.uima.resource.ResourceInitializationException;
 import org.apache.xmlbeans.impl.xb.xsdschema.Public;
 import org.springframework.context.support.StaticApplicationContext;
 
+import Types.ABNERAnnotation;
 import Types.SentenceAnnotation;
 import abner.Tagger;
 
@@ -25,43 +26,40 @@ public class SDABNERAnnotator extends JCasAnnotator_ImplBase{
 
    //private static Tagger aABNERTagger;
  // static final String
-  private File file;
-  private BufferedWriter bufferedWriter;
-  private Tagger aABNERTagger;
+  //private File file;
+  //private BufferedWriter bufferedWriter;
+ // private  static Tagger aABNERTagger;
  
-  private FileWriter fileWriter;
+  //private FileWriter fileWriter;
   
   public void initialize(UimaContext aContext)
           throws ResourceInitializationException{
 
     System.out.println("I am in ABNERTagger-------------------------");
-    aABNERTagger = new Tagger();
+   // aABNERTagger = new Tagger(0);
   }
   
   /**
    * 
    */
   public void process(JCas aJCas) throws AnalysisEngineProcessException {
-    FileWriter fileWriter;
-    try {
-      fileWriter = new FileWriter(new File("src/main/resources/myout"), true);
-      Tagger aABNERTagger = new Tagger();
-      
-      FSIterator<Annotation> sentenceIterator = aJCas.getAnnotationIndex(SentenceAnnotation.type).iterator();
-      while(sentenceIterator.hasNext()){
-        SentenceAnnotation aSentenceTag = (SentenceAnnotation)sentenceIterator.get();
-        String s = aSentenceTag.getText();
-        String[][] result = aABNERTagger.getEntities(s);
-        for(int i = 0; i < result[1].length; i++){
-          if(result[1][i].equals("DNA") || result[1][i].equals("RNA") || result[1][i].equals("Protein")){
-            fileWriter.append(result[0][i] + "\n");
-          }
-        }        
-        sentenceIterator.moveToNext();
-      }
-      fileWriter.close();
-    } catch (IOException e1) {
-      e1.printStackTrace();
+    
+    //if(aABNERTagger == null) 
+     Tagger aABNERTagger = new Tagger();     
+     FSIterator<Annotation> sentenceIterator = aJCas.getAnnotationIndex(SentenceAnnotation.type).iterator();
+     while(sentenceIterator.hasNext()){
+       SentenceAnnotation aSentenceTag = (SentenceAnnotation)sentenceIterator.get();
+       String s = aSentenceTag.getText();
+       String[][] result = aABNERTagger.getEntities(s);
+       for(int i = 0; i < result[1].length; i++){
+         if(result[1][i].equals("DNA") || result[1][i].equals("RNA") || result[1][i].equals("Protein")){
+           ABNERAnnotation abnerAnnotation = new ABNERAnnotation(aJCas);
+           abnerAnnotation.setSentenceID(aSentenceTag.getSentenceID());
+           abnerAnnotation.setEntity(result[0][i]);
+           abnerAnnotation.addToIndexes(aJCas);
+         }
+       }        
+       sentenceIterator.moveToNext();
     }
   }
 
