@@ -52,13 +52,13 @@ public class SDABNERAnnotator extends JCasAnnotator_ImplBase{
        String s = aSentenceTag.getText();
        String[][] result = aABNERTagger.getEntities(s);
        for(int i = 0; i < result[1].length; i++){
-         if(result[1][i].equals("DNA") || result[1][i].equals("RNA") || result[1][i].equals("Protein") ||result[1][i].equals("Cell Line")){
+         //if(result[1][i].equals("DNA") || result[1][i].equals("RNA") || result[1][i].equals("Protein") ||result[1][i].equals("Cell Line")){
            ABNERAnnotation abnerAnnotation = new ABNERAnnotation(aJCas);
            abnerAnnotation.setSentenceID(aSentenceTag.getSentenceID());
            abnerAnnotation.setEntity(result[0][i]);
            abnerAnnotation.addToIndexes(aJCas);
            count++;
-         }
+         //}
        }        
        sentenceIterator.moveToNext();
     }
