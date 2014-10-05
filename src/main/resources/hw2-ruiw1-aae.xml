@@ -9,11 +9,11 @@
   <delegateAnalysisEngine key="ABNERAnnotatorDescriptor">
       <import location="Annotators/ABNERAnnotatorDescriptor.xml"/>
     </delegateAnalysisEngine>
-  <delegateAnalysisEngine key="SDRuleBasedRecognizrDescriptor">
-      <import location="Annotators/SDRuleBasedRecognizrDescriptor.xml"/>
-    </delegateAnalysisEngine>
   <delegateAnalysisEngine key="SDGeneAnnotatorDescriptor">
       <import location="Annotators/SDGeneAnnotatorDescriptor.xml"/>
+    </delegateAnalysisEngine>
+  <delegateAnalysisEngine key="SDEvaluatorDescriptor">
+      <import location="Annotators/SDEvaluatorDescriptor.xml"/>
     </delegateAnalysisEngine>
   </delegateAnalysisEngineSpecifiers>
   <analysisEngineMetaData>
@@ -28,6 +28,7 @@
         <node>SentenceAnnotatorDescriptor</node>
       <node>ABNERAnnotatorDescriptor</node>
       <node>SDGeneAnnotatorDescriptor</node>
+      <node>SDEvaluatorDescriptor</node>
       </fixedFlow>
     </flowConstraints>
     <fsIndexCollection/>

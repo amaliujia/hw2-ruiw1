@@ -25,7 +25,8 @@ import Types.lingpileAnnotation;
 public class SDEvaluatorAnnotator extends JCasAnnotator_ImplBase{
   private static final double threshold = 0.1;
   private static HashMap<String, ArrayList<String>> abnerHashMap;
- 
+  private int count = 0;
+  
   public void initialize(UimaContext aContext)
           throws ResourceInitializationException{
     abnerHashMap = new HashMap<String, ArrayList<String>>();
@@ -34,6 +35,7 @@ public class SDEvaluatorAnnotator extends JCasAnnotator_ImplBase{
 
   
   public void process(JCas aJCas) throws AnalysisEngineProcessException {
+   // System.out.println("I am in SDEvaluatorAnnotator-------------------------");
     FSIterator<Annotation> it = aJCas.getAnnotationIndex(ABNERAnnotation.type).iterator();
     while(it.hasNext()){
       ABNERAnnotation abnerAnnotation = (ABNERAnnotation)it.get();
@@ -58,9 +60,6 @@ public class SDEvaluatorAnnotator extends JCasAnnotator_ImplBase{
       String geneString = alingAnnotation.getText();
       if(abnerHashMap.containsKey(sentenceID)){
         ArrayList array = abnerHashMap.get(sentenceID);
-//        if(array.find(alingAnnotation.getText())){
-//          
-//        }
         int i = 0;
         for(; i < array.size(); i++){
           if(array.get(i) == geneString){
@@ -68,6 +67,7 @@ public class SDEvaluatorAnnotator extends JCasAnnotator_ImplBase{
             aSDGeneEntity.setSentenceID(sentenceID);
             aSDGeneEntity.setEntity(geneString);
             aSDGeneEntity.addToIndexes(aJCas);
+            count++;
             break;
           }
         }
@@ -76,13 +76,21 @@ public class SDEvaluatorAnnotator extends JCasAnnotator_ImplBase{
             SDGeneEntity aSDGeneEntity = new SDGeneEntity(aJCas);
             aSDGeneEntity.setSentenceID(sentenceID);
             aSDGeneEntity.setEntity(geneString);
-            aSDGeneEntity.addToIndexes(aJCas); 
+            aSDGeneEntity.addToIndexes(aJCas);
+            count++;
           }
         }
+      }else{
+        
+      //  System.out.println("Size of map " + abnerHashMap.size() + "  " + alingAnnotation.getSentenceID() + "  " + alingAnnotation.getText() + "  " + alingAnnotation.getScore());
+        
+     
       }
       it.moveToNext();
     }
     
   }
-
+  public void destroy(){
+    System.out.println("Final product Combination  " + count); 
+   }
 }

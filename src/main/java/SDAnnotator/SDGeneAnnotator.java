@@ -51,6 +51,7 @@ import abner.Tagger;
 import com.aliasi.chunk.Chunk;
 import com.aliasi.chunk.Chunker;
 import com.aliasi.chunk.Chunking;
+import com.aliasi.chunk.ConfidenceChunker;
 import com.aliasi.chunk.HmmChunker;
 import com.aliasi.util.AbstractExternalizable;
 
@@ -66,13 +67,15 @@ public class SDGeneAnnotator extends JCasAnnotator_ImplBase {
   
   private final static String dataset = "src/main/resources/SampleData/ne-en-bio-genetag.HmmChunker";
   private File chunkerFile;
-  private Chunker chunker;
+ // private Chunker chunker;
+  private ConfidenceChunker chunker;
+  private int i = 0;
   
   public void initialize(UimaContext aContext)
           throws ResourceInitializationException{
    chunkerFile = new File(dataset);
    try {
-    chunker = (HmmChunker) AbstractExternalizable.readObject(chunkerFile);
+    chunker = (ConfidenceChunker) AbstractExternalizable.readObject(chunkerFile);
   } catch (IOException e) {
     // TODO Auto-generated catch block
     e.printStackTrace();
@@ -102,23 +105,33 @@ public class SDGeneAnnotator extends JCasAnnotator_ImplBase {
       while(it.hasNext()){
         SentenceAnnotation tag =  (SentenceAnnotation)it.get();
          String s = tag.getText();
-         Chunking chunking = chunker.chunk(s);
-         Set<Chunk> chunkSet = chunking.chunkSet();
-         for(Chunk chunk : chunkSet){
+         //Chunking chunking = ((Chunker) chunker).chunk(s);
+         //Set<Chunk> chunkSet = chunking.chunkSet();
+         Iterator<Chunk> iterator = chunker.nBestChunks(s.toCharArray(), 0, s.length(), 60);
+         //for(Chunk chunk : chunkSet){
+         Chunk chunk;
+         while(iterator.hasNext()){
+           chunk = iterator.next();
            if(chunk != null){
              lingpileAnnotation gene = new lingpileAnnotation(aJCas);
              gene.setSentenceID(tag.getSentenceID());
              gene.setBegin(chunk.start());
              gene.setEnd(chunk.end());
              gene.setText(s.substring(chunk.start(),chunk.end()));
-             gene.setScore(chunk.score());
-             gene.addToIndexes();
+            // System.out.println(Math.pow(2.0, chunk.score()));
+             gene.setScore(Math.pow(2.0, chunk.score()));
+             gene.addToIndexes(aJCas);
+             i++;
            }
          }
          it.moveToNext();
       }  
   }
-
+   public void destroy(){
+     System.out.println("Final product lingpipe  " + i); 
+    }
+   
+   
   /**
    * This function is used to count blanks in string.
    * @param s

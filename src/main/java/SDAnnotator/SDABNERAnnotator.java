@@ -29,7 +29,7 @@ public class SDABNERAnnotator extends JCasAnnotator_ImplBase{
   //private File file;
   //private BufferedWriter bufferedWriter;
   private  Tagger aABNERTagger;
- 
+  private int count = 0;
   //private FileWriter fileWriter;
   
   public void initialize(UimaContext aContext)
@@ -57,6 +57,7 @@ public class SDABNERAnnotator extends JCasAnnotator_ImplBase{
            abnerAnnotation.setSentenceID(aSentenceTag.getSentenceID());
            abnerAnnotation.setEntity(result[0][i]);
            abnerAnnotation.addToIndexes(aJCas);
+           count++;
          }
        }        
        sentenceIterator.moveToNext();
@@ -64,6 +65,6 @@ public class SDABNERAnnotator extends JCasAnnotator_ImplBase{
   }
   
   public void destroy(){
-    
+   System.out.println("Final product ABNER  " + count); 
   }
 }
