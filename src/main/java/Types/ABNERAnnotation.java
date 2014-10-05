@@ -11,7 +11,7 @@ import org.apache.uima.jcas.tcas.Annotation;
 
 
 /** 
- * Updated by JCasGen Sun Oct 05 12:38:05 EDT 2014
+ * Updated by JCasGen Sun Oct 05 14:41:48 EDT 2014
  * XML source: /Users/amaliujia/Documents/workspace/hw2-ruiw1/src/main/resources/TypeSystems/SDTypeSystem.xml
  * @generated */
 public class ABNERAnnotation extends Annotation {
@@ -118,6 +118,28 @@ public class ABNERAnnotation extends Annotation {
     if (ABNERAnnotation_Type.featOkTst && ((ABNERAnnotation_Type)jcasType).casFeat_entity == null)
       jcasType.jcas.throwFeatMissing("entity", "Types.ABNERAnnotation");
     jcasType.ll_cas.ll_setStringValue(addr, ((ABNERAnnotation_Type)jcasType).casFeatCode_entity, v);}    
+   
+    
+  //*--------------*
+  //* Feature: score
+
+  /** getter for score - gets 
+   * @generated
+   * @return value of the feature 
+   */
+  public double getScore() {
+    if (ABNERAnnotation_Type.featOkTst && ((ABNERAnnotation_Type)jcasType).casFeat_score == null)
+      jcasType.jcas.throwFeatMissing("score", "Types.ABNERAnnotation");
+    return jcasType.ll_cas.ll_getDoubleValue(addr, ((ABNERAnnotation_Type)jcasType).casFeatCode_score);}
+    
+  /** setter for score - sets  
+   * @generated
+   * @param v value to set into the feature 
+   */
+  public void setScore(double v) {
+    if (ABNERAnnotation_Type.featOkTst && ((ABNERAnnotation_Type)jcasType).casFeat_score == null)
+      jcasType.jcas.throwFeatMissing("score", "Types.ABNERAnnotation");
+    jcasType.ll_cas.ll_setDoubleValue(addr, ((ABNERAnnotation_Type)jcasType).casFeatCode_score, v);}    
   }
 
     

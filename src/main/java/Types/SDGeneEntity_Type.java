@@ -1,5 +1,5 @@
 
-/* First created by JCasGen Fri Oct 03 21:33:01 EDT 2014 */
+/* First created by JCasGen Sun Oct 05 14:41:48 EDT 2014 */
 package Types;
 
 import org.apache.uima.jcas.JCas;
@@ -16,7 +16,7 @@ import org.apache.uima.jcas.tcas.Annotation_Type;
 /** 
  * Updated by JCasGen Sun Oct 05 14:41:48 EDT 2014
  * @generated */
-public class SentenceAnnotation_Type extends Annotation_Type {
+public class SDGeneEntity_Type extends Annotation_Type {
   /** @generated 
    * @return the generator for this type
    */
@@ -26,25 +26,25 @@ public class SentenceAnnotation_Type extends Annotation_Type {
   private final FSGenerator fsGenerator = 
     new FSGenerator() {
       public FeatureStructure createFS(int addr, CASImpl cas) {
-  			 if (SentenceAnnotation_Type.this.useExistingInstance) {
+  			 if (SDGeneEntity_Type.this.useExistingInstance) {
   			   // Return eq fs instance if already created
-  		     FeatureStructure fs = SentenceAnnotation_Type.this.jcas.getJfsFromCaddr(addr);
+  		     FeatureStructure fs = SDGeneEntity_Type.this.jcas.getJfsFromCaddr(addr);
   		     if (null == fs) {
-  		       fs = new SentenceAnnotation(addr, SentenceAnnotation_Type.this);
-  			   SentenceAnnotation_Type.this.jcas.putJfsFromCaddr(addr, fs);
+  		       fs = new SDGeneEntity(addr, SDGeneEntity_Type.this);
+  			   SDGeneEntity_Type.this.jcas.putJfsFromCaddr(addr, fs);
   			   return fs;
   		     }
   		     return fs;
-        } else return new SentenceAnnotation(addr, SentenceAnnotation_Type.this);
+        } else return new SDGeneEntity(addr, SDGeneEntity_Type.this);
   	  }
     };
   /** @generated */
   @SuppressWarnings ("hiding")
-  public final static int typeIndexID = SentenceAnnotation.typeIndexID;
+  public final static int typeIndexID = SDGeneEntity.typeIndexID;
   /** @generated 
      @modifiable */
   @SuppressWarnings ("hiding")
-  public final static boolean featOkTst = JCasRegistry.getFeatOkTst("Types.SentenceAnnotation");
+  public final static boolean featOkTst = JCasRegistry.getFeatOkTst("Types.SDGeneEntity");
  
   /** @generated */
   final Feature casFeat_sentenceID;
@@ -56,7 +56,7 @@ public class SentenceAnnotation_Type extends Annotation_Type {
    */ 
   public String getSentenceID(int addr) {
         if (featOkTst && casFeat_sentenceID == null)
-      jcas.throwFeatMissing("sentenceID", "Types.SentenceAnnotation");
+      jcas.throwFeatMissing("sentenceID", "Types.SDGeneEntity");
     return ll_cas.ll_getStringValue(addr, casFeatCode_sentenceID);
   }
   /** @generated
@@ -65,32 +65,32 @@ public class SentenceAnnotation_Type extends Annotation_Type {
    */    
   public void setSentenceID(int addr, String v) {
         if (featOkTst && casFeat_sentenceID == null)
-      jcas.throwFeatMissing("sentenceID", "Types.SentenceAnnotation");
+      jcas.throwFeatMissing("sentenceID", "Types.SDGeneEntity");
     ll_cas.ll_setStringValue(addr, casFeatCode_sentenceID, v);}
     
   
  
   /** @generated */
-  final Feature casFeat_text;
+  final Feature casFeat_entity;
   /** @generated */
-  final int     casFeatCode_text;
+  final int     casFeatCode_entity;
   /** @generated
    * @param addr low level Feature Structure reference
    * @return the feature value 
    */ 
-  public String getText(int addr) {
-        if (featOkTst && casFeat_text == null)
-      jcas.throwFeatMissing("text", "Types.SentenceAnnotation");
-    return ll_cas.ll_getStringValue(addr, casFeatCode_text);
+  public String getEntity(int addr) {
+        if (featOkTst && casFeat_entity == null)
+      jcas.throwFeatMissing("entity", "Types.SDGeneEntity");
+    return ll_cas.ll_getStringValue(addr, casFeatCode_entity);
   }
   /** @generated
    * @param addr low level Feature Structure reference
    * @param v value to set 
    */    
-  public void setText(int addr, String v) {
-        if (featOkTst && casFeat_text == null)
-      jcas.throwFeatMissing("text", "Types.SentenceAnnotation");
-    ll_cas.ll_setStringValue(addr, casFeatCode_text, v);}
+  public void setEntity(int addr, String v) {
+        if (featOkTst && casFeat_entity == null)
+      jcas.throwFeatMissing("entity", "Types.SDGeneEntity");
+    ll_cas.ll_setStringValue(addr, casFeatCode_entity, v);}
     
   
 
@@ -101,7 +101,7 @@ public class SentenceAnnotation_Type extends Annotation_Type {
 	 * @param jcas JCas
 	 * @param casType Type 
 	 */
-  public SentenceAnnotation_Type(JCas jcas, Type casType) {
+  public SDGeneEntity_Type(JCas jcas, Type casType) {
     super(jcas, casType);
     casImpl.getFSClassRegistry().addGeneratorForType((TypeImpl)this.casType, getFSGenerator());
 
@@ -110,8 +110,8 @@ public class SentenceAnnotation_Type extends Annotation_Type {
     casFeatCode_sentenceID  = (null == casFeat_sentenceID) ? JCas.INVALID_FEATURE_CODE : ((FeatureImpl)casFeat_sentenceID).getCode();
 
  
-    casFeat_text = jcas.getRequiredFeatureDE(casType, "text", "uima.cas.String", featOkTst);
-    casFeatCode_text  = (null == casFeat_text) ? JCas.INVALID_FEATURE_CODE : ((FeatureImpl)casFeat_text).getCode();
+    casFeat_entity = jcas.getRequiredFeatureDE(casType, "entity", "uima.cas.String", featOkTst);
+    casFeatCode_entity  = (null == casFeat_entity) ? JCas.INVALID_FEATURE_CODE : ((FeatureImpl)casFeat_entity).getCode();
 
   }
 }

@@ -27,7 +27,6 @@
       <fixedFlow>
         <node>SentenceAnnotatorDescriptor</node>
       <node>ABNERAnnotatorDescriptor</node>
-      <node>SDRuleBasedRecognizrDescriptor</node>
       <node>SDGeneAnnotatorDescriptor</node>
       </fixedFlow>
     </flowConstraints>

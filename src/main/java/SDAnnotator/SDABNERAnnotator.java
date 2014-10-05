@@ -44,7 +44,7 @@ public class SDABNERAnnotator extends JCasAnnotator_ImplBase{
    */
   public void process(JCas aJCas) throws AnalysisEngineProcessException {
     
-    if(aABNERTagger == null) aABNERTagger = new Tagger(0);
+    //if(aABNERTagger == null) aABNERTagger = new Tagger(0);
      //Tagger aABNERTagger = new Tagger();     
      FSIterator<Annotation> sentenceIterator = aJCas.getAnnotationIndex(SentenceAnnotation.type).iterator();
      while(sentenceIterator.hasNext()){

@@ -17,6 +17,7 @@ import org.apache.uima.jcas.tcas.Annotation;
 import org.apache.uima.resource.ResourceProcessException;
 
 import Types.ABNERAnnotation;
+import Types.SDGeneEntity;
 import Types.SentenceAnnotation;
 
 public class SDConsumer extends CasConsumer_ImplBase{
@@ -43,9 +44,9 @@ public class SDConsumer extends CasConsumer_ImplBase{
     }   
     try {
       //fileWriter = new FileWriter(new File(output), true);
-      FSIterator<Annotation> geneIterator = jcas.getAnnotationIndex(ABNERAnnotation.type).iterator();
+      FSIterator<Annotation> geneIterator = jcas.getAnnotationIndex(SDGeneEntity.type).iterator();
       while (geneIterator.hasNext()) {
-        ABNERAnnotation abnerAnnotation = (ABNERAnnotation)geneIterator.get();
+        SDGeneEntity abnerAnnotation = (SDGeneEntity)geneIterator.get();
         fileWriter.append(abnerAnnotation.getEntity() + "\n");
         //fileWriter.write(abnerAnnotation.getEntity() + "\n");
         geneIterator.moveToNext(); 

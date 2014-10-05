@@ -105,12 +105,13 @@ public class SDGeneAnnotator extends JCasAnnotator_ImplBase {
          Chunking chunking = chunker.chunk(s);
          Set<Chunk> chunkSet = chunking.chunkSet();
          for(Chunk chunk : chunkSet){
-           if(chunk != null){   
+           if(chunk != null){
              lingpileAnnotation gene = new lingpileAnnotation(aJCas);
              gene.setSentenceID(tag.getSentenceID());
              gene.setBegin(chunk.start());
              gene.setEnd(chunk.end());
              gene.setText(s.substring(chunk.start(),chunk.end()));
+             gene.setScore(chunk.score());
              gene.addToIndexes();
            }
          }
