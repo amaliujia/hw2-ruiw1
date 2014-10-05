@@ -1,13 +1,8 @@
 package SDAnnotator;
 
-import geneTag;
-import sentenceTag;
-
 import java.io.FileNotFoundException;
 import java.util.Iterator;
 import java.util.Map;
-
-import model.PosTagNamedEntityRecognizer;
 
 import org.apache.uima.analysis_component.JCasAnnotator_ImplBase;
 import org.apache.uima.analysis_engine.AnalysisEngineProcessException;
@@ -18,6 +13,7 @@ import org.apache.uima.resource.ResourceInitializationException;
 
 import Types.SDRuleBasedRecAnnotation;
 import Types.SentenceAnnotation;
+
 
 public class SDRuleBasedAnnotator extends JCasAnnotator_ImplBase {
 
