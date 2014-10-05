@@ -28,7 +28,7 @@ public class SDABNERAnnotator extends JCasAnnotator_ImplBase{
  // static final String
   //private File file;
   //private BufferedWriter bufferedWriter;
- // private  static Tagger aABNERTagger;
+  private  Tagger aABNERTagger;
  
   //private FileWriter fileWriter;
   
@@ -36,7 +36,7 @@ public class SDABNERAnnotator extends JCasAnnotator_ImplBase{
           throws ResourceInitializationException{
 
     System.out.println("I am in ABNERTagger-------------------------");
-   // aABNERTagger = new Tagger(0);
+    aABNERTagger = new Tagger(0);
   }
   
   /**
@@ -44,15 +44,15 @@ public class SDABNERAnnotator extends JCasAnnotator_ImplBase{
    */
   public void process(JCas aJCas) throws AnalysisEngineProcessException {
     
-    //if(aABNERTagger == null) 
-     Tagger aABNERTagger = new Tagger();     
+    if(aABNERTagger == null) aABNERTagger = new Tagger(0);
+     //Tagger aABNERTagger = new Tagger();     
      FSIterator<Annotation> sentenceIterator = aJCas.getAnnotationIndex(SentenceAnnotation.type).iterator();
      while(sentenceIterator.hasNext()){
        SentenceAnnotation aSentenceTag = (SentenceAnnotation)sentenceIterator.get();
        String s = aSentenceTag.getText();
        String[][] result = aABNERTagger.getEntities(s);
        for(int i = 0; i < result[1].length; i++){
-         if(result[1][i].equals("DNA") || result[1][i].equals("RNA") || result[1][i].equals("Protein")){
+         if(result[1][i].equals("DNA") || result[1][i].equals("RNA") || result[1][i].equals("Protein") ||result[1][i].equals("Cell Line")){
            ABNERAnnotation abnerAnnotation = new ABNERAnnotation(aJCas);
            abnerAnnotation.setSentenceID(aSentenceTag.getSentenceID());
            abnerAnnotation.setEntity(result[0][i]);
@@ -62,5 +62,8 @@ public class SDABNERAnnotator extends JCasAnnotator_ImplBase{
        sentenceIterator.moveToNext();
     }
   }
-
+  
+  public void destroy(){
+    
+  }
 }

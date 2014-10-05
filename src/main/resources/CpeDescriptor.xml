@@ -15,7 +15,7 @@
             </configurationParameterSettings>
         </collectionIterator>
     </collectionReader>
-    <casProcessors casPoolSize="3" processingUnitThreadCount="4">
+    <casProcessors casPoolSize="3" processingUnitThreadCount="1">
         <casProcessor deployment="integrated" name="hw2-ruiw1-aae">
             <descriptor>
                 <import location="hw2-ruiw1-aae.xml"/>
