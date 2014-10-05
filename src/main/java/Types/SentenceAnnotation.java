@@ -11,7 +11,7 @@ import org.apache.uima.jcas.tcas.Annotation;
 
 
 /** 
- * Updated by JCasGen Sun Oct 05 00:32:52 EDT 2014
+ * Updated by JCasGen Sun Oct 05 12:38:05 EDT 2014
  * XML source: /Users/amaliujia/Documents/workspace/hw2-ruiw1/src/main/resources/TypeSystems/SDTypeSystem.xml
  * @generated */
 public class SentenceAnnotation extends Annotation {

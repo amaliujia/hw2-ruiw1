@@ -75,7 +75,7 @@ public class PosTagNamedEntityRecognizer {
         }
       }
       if (candidate.size() > 0) {
-        ruleBasedRecognizer.deep(candidate, begin2end);        
+      //  ruleBasedRecognizer.deep(candidate, begin2end);        
         candidate.clear();
       }
     }

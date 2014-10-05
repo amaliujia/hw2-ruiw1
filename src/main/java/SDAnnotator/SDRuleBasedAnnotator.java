@@ -18,25 +18,32 @@ import Types.SentenceAnnotation;
 
 public class SDRuleBasedAnnotator extends JCasAnnotator_ImplBase {
 
+  private PosTagNamedEntityRecognizer posTagNamedEntityRecognizer;
+  
   public void initialize(UimaContext aContext)
           throws ResourceInitializationException{
 
     System.out.println("I am in RuleBasedAnnotator-------------------------");
+    try {
+      posTagNamedEntityRecognizer = new PosTagNamedEntityRecognizer();
+    } catch (FileNotFoundException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
   }
   
   
   @Override
   public void process(JCas aJCas) throws AnalysisEngineProcessException {
-//    PosTagNamedEntityRecognizer posTagNamedEntityRecognizer;
-//    try {
-//      posTagNamedEntityRecognizer = new PosTagNamedEntityRecognizer();
-//      FSIterator<Annotation> it = aJCas.getAnnotationIndex(SentenceAnnotation.type).iterator();
-//      while(it.hasNext()){
-//        SentenceAnnotation tag =  (SentenceAnnotation)it.get();
-//         String s = tag.getText();
-//         // Call recognizer.
-//         Map<Integer, Integer>map = posTagNamedEntityRecognizer.getGeneSpans(s);
-//         Iterator mapIterator = map.keySet().iterator();
+    //PosTagNamedEntityRecognizer posTagNamedEntityRecognizer;
+ //   try {
+      FSIterator<Annotation> it = aJCas.getAnnotationIndex(SentenceAnnotation.type).iterator();
+      while(it.hasNext()){
+         SentenceAnnotation tag =  (SentenceAnnotation)it.get();
+         String s = tag.getText();
+         // Call recognizer.
+         Map<Integer, Integer>map = posTagNamedEntityRecognizer.getGeneSpans(s);
+         Iterator mapIterator = map.keySet().iterator();
 //         while(mapIterator.hasNext()){
 //           Map.Entry entry = (Map.Entry) mapIterator.next(); 
 //           SDRuleBasedRecAnnotation gene = new SDRuleBasedRecAnnotation(aJCas);
@@ -46,7 +53,8 @@ public class SDRuleBasedAnnotator extends JCasAnnotator_ImplBase {
 //           gene.setEntity(s.substring(gene.getBegin(), gene.getEnd()));
 //           gene.addToIndexes(aJCas);
 //         }
-//      } 
+         it.moveToNext();
+      } 
 //    } catch (ResourceInitializationException e) {
 //      e.printStackTrace();
 //    } catch (FileNotFoundException e) {

@@ -12,6 +12,9 @@
   <delegateAnalysisEngine key="SDRuleBasedRecognizrDescriptor">
       <import location="Annotators/SDRuleBasedRecognizrDescriptor.xml"/>
     </delegateAnalysisEngine>
+  <delegateAnalysisEngine key="SDGeneAnnotatorDescriptor">
+      <import location="Annotators/SDGeneAnnotatorDescriptor.xml"/>
+    </delegateAnalysisEngine>
   </delegateAnalysisEngineSpecifiers>
   <analysisEngineMetaData>
     <name>hw2-ruiw1-aae</name>
@@ -25,6 +28,7 @@
         <node>SentenceAnnotatorDescriptor</node>
       <node>ABNERAnnotatorDescriptor</node>
       <node>SDRuleBasedRecognizrDescriptor</node>
+      <node>SDGeneAnnotatorDescriptor</node>
       </fixedFlow>
     </flowConstraints>
     <fsIndexCollection/>

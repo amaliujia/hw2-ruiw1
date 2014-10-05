@@ -19,7 +19,7 @@ import edu.stanford.nlp.ling.CoreLabel;
  */
 public class RuleBasedRecognizer {
 
-  private static HashMap<String, Integer> general;
+  private HashMap<String, Integer> general;
   
   /**
    * Initialize term dictionary.
@@ -27,15 +27,15 @@ public class RuleBasedRecognizer {
    *          thorws when cannot find target file.
    */
   public RuleBasedRecognizer () throws FileNotFoundException {
-    Scanner scanner = new Scanner(new File("src/main/resources/data/corpus.txt"));
+ //   Scanner scanner = new Scanner(new File("src/main/resources/SampleData/corpus.txt"));
     general = new HashMap<String, Integer>();
-    while(scanner.hasNext()){
-      String temp = scanner.nextLine();
-      if(temp.endsWith("~withdrawn")){
-        temp = temp.split("~")[0];
-      }
-      general.put(temp, 1);
-    }
+//    while(scanner.hasNext()){
+//      String temp = scanner.nextLine();
+//      if(temp.endsWith("~withdrawn")){
+//        temp = temp.split("~")[0];
+//      }
+//      general.put(temp, 1);
+//    }
   }
   
   /**
