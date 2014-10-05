@@ -3,7 +3,7 @@
   <frameworkImplementation>org.apache.uima.java</frameworkImplementation>
   <primitive>true</primitive>  <annotatorImplementationName>SDAnnotator.SDABNERAnnotator</annotatorImplementationName>
   <analysisEngineMetaData>
-    <name>ABNERAnnotatorDescriptorxml</name>
+    <name>ABNERAnnotatorDescriptor</name>
     <description/>
     <version>1.0</version>
     <vendor/>

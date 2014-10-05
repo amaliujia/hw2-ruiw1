@@ -6,6 +6,9 @@
     <delegateAnalysisEngine key="SentenceAnnotatorDescriptor">
       <import location="Annotators/SentenceAnnotatorDescriptor.xml"/>
     </delegateAnalysisEngine>
+  <delegateAnalysisEngine key="ABNERAnnotatorDescriptor">
+      <import location="Annotators/ABNERAnnotatorDescriptor.xml"/>
+    </delegateAnalysisEngine>
   </delegateAnalysisEngineSpecifiers>
   <analysisEngineMetaData>
     <name>hw2-ruiw1-aae</name>
@@ -17,6 +20,7 @@
     <flowConstraints>
       <fixedFlow>
         <node>SentenceAnnotatorDescriptor</node>
+      <node>ABNERAnnotatorDescriptor</node>
       </fixedFlow>
     </flowConstraints>
     <fsIndexCollection/>
