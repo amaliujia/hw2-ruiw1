@@ -33,13 +33,7 @@ public class SDABNERAnnotator extends JCasAnnotator_ImplBase{
           throws ResourceInitializationException{
 
     System.out.println("I am in ABNERTagger-------------------------");
-    //this.aABNERTagger = new Tagger(0);
-    //file =
-   
     aABNERTagger = new Tagger();
-    //fileWriter = new FileWriter(new File("src/main/resources/myout"));
-   // bufferedWriter = new BufferedWriter(new FileWriter(new File("src/main/resources/myout")));
-      
   }
   
   @Override
@@ -59,24 +53,6 @@ public class SDABNERAnnotator extends JCasAnnotator_ImplBase{
     } catch (IOException e1) {
       // TODO Auto-generated catch block
       e1.printStackTrace();
-    }
-    try {
-      //for(int i = 0; i < result[1].length; i++){
-         //if(result[1][i].equals("DNA") ){
-        //   System.out.print(result[0][i] + " ");
-  //          fileWriter.write("abds");
-//            bufferedWriter.append(result[0][i]);
-//            bufferedWriter.newLine();
-         //}
-        //System.out.print(result[1][i] + " ");
-      //}
- //     System.out.println();
-//      fileWriter.close();
-     // bufferedWriter.flush();
-      //System.out.println();
-    } catch (Exception e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
     }
   }
 

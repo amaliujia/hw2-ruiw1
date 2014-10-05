@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <analysisEngineDescription xmlns="http://uima.apache.org/resourceSpecifier">
   <frameworkImplementation>org.apache.uima.java</frameworkImplementation>
-  <primitive>true</primitive>  <annotatorImplementationName>SDAnnotator.SDABNERAnnotator</annotatorImplementationName>
+  <primitive>true</primitive>  <annotatorImplementationName>SDAnnotator.SDSentenceAnnotator</annotatorImplementationName>
   <analysisEngineMetaData>
-    <name>SDABNERAnnotator</name>
+    <name>SentenceAnnotatorDescriptor</name>
     <description/>
     <version>1.0</version>
     <vendor/>
@@ -11,7 +11,7 @@
     <configurationParameterSettings/>
     <typeSystemDescription>
       <imports>
-        <import location="../TypeSystems/SDTypeSystemxml"/>
+        <import location="../TypeSystems/SDTypeSystem.xml"/>
       </imports>
     </typeSystemDescription>
     <typePriorities/>

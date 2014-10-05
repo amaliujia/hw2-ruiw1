@@ -7,18 +7,11 @@
     <description/>
     <version>1.0</version>
     <vendor/>
-    <configurationParameters>
-      <configurationParameter>
-        <name>InputFile</name>
-        <type>String</type>
-        <multiValued>false</multiValued>
-        <mandatory>true</mandatory>
-      </configurationParameter>
-    </configurationParameters>
+    <configurationParameters/>
     <configurationParameterSettings/>
     <typeSystemDescription>
       <imports>
-        <import location="../TypeSystems/SDTypeSystemxml"/>
+        <import location="../TypeSystems/SDTypeSystem.xml"/>
       </imports>
     </typeSystemDescription>
     <typePriorities/>
