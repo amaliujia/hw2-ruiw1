@@ -64,7 +64,7 @@ public class SDFilesCollectionReader extends CollectionReader_ImplBase {
 
   @Override
   public boolean hasNext() throws IOException, CollectionException {
-    return index < 100;
+    return index < num;
   }
 
   @Override

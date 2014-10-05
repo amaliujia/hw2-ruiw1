@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>edu.cmu.lti.11791.f14.hw2</groupId>
 	<artifactId>hw2-ruiw1</artifactId>
-	<version>1.0-SNAPSHOT</version>
+	<version>0.0.1-SNAPSHOT</version>
 	<repositories>
 		<repository>
 			<id>oaqa</id>
@@ -90,8 +90,8 @@
 			<version>1.3.3</version>
 		</dependency>
 	</dependencies>
-	<scm>
-		<connection>scm:git:git:@github.com:amaliujia/hw2-ruiw1.git</connection>
-		<developerConnection>scm:git:git:@github.com:amaliujia/hw2-ruiw1.git</developerConnection>
-	</scm>
+  <scm>
+  	<connection>scm:git:git:@github.com:amaliujia/hw2-ruiw1.git</connection>
+  	<developerConnection>scm:git:git:@github.com:amaliujia/hw2-ruiw1.git</developerConnection>
+  </scm>
 </project>
