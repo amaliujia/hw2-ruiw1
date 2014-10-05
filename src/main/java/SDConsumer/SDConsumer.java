@@ -1,7 +1,10 @@
 package SDConsumer;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 
 import javax.wsdl.Output;
 
@@ -20,9 +23,18 @@ public class SDConsumer extends CasConsumer_ImplBase{
 
   public final static String output = "src/main/resources/myout";
    
-
+  private Writer fileWriter = null;
+  
+  public void initialize(){
+    try {
+      fileWriter = new FileWriter(new File(output));//new BufferedWriter(new FileWriter(output));
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+  
   public void processCas(CAS aCAS) throws ResourceProcessException {
-    FileWriter fileWriter;
+    //FileWriter fileWriter;
     JCas jcas = null;
     try {
       jcas = aCAS.getJCas();
@@ -30,18 +42,32 @@ public class SDConsumer extends CasConsumer_ImplBase{
       e.printStackTrace();
     }   
     try {
-      fileWriter = new FileWriter(new File(output), true);
+      //fileWriter = new FileWriter(new File(output), true);
       FSIterator<Annotation> geneIterator = jcas.getAnnotationIndex(ABNERAnnotation.type).iterator();
       while (geneIterator.hasNext()) {
         ABNERAnnotation abnerAnnotation = (ABNERAnnotation)geneIterator.get();
         fileWriter.append(abnerAnnotation.getEntity() + "\n");
+        //fileWriter.write(abnerAnnotation.getEntity() + "\n");
         geneIterator.moveToNext(); 
       }
-
-      fileWriter.close();
+//      try {
+//        fileWriter.close(); 
+//      } catch (Exception e) {
+//        System.out.println("writer close wrongly");
+//        e.printStackTrace();
+//      }
     }catch(Exception e){
-      
+      e.printStackTrace();
     }
   }
 
+  
+  public void destroy() {
+    try {
+      fileWriter.close();
+    } catch (IOException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+  }
 }

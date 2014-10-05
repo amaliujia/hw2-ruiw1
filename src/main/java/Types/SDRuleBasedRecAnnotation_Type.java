@@ -1,5 +1,5 @@
 
-/* First created by JCasGen Sat Oct 04 23:03:21 EDT 2014 */
+/* First created by JCasGen Sun Oct 05 00:32:52 EDT 2014 */
 package Types;
 
 import org.apache.uima.jcas.JCas;
@@ -16,7 +16,7 @@ import org.apache.uima.jcas.tcas.Annotation_Type;
 /** 
  * Updated by JCasGen Sun Oct 05 00:32:52 EDT 2014
  * @generated */
-public class ABNERAnnotation_Type extends Annotation_Type {
+public class SDRuleBasedRecAnnotation_Type extends Annotation_Type {
   /** @generated 
    * @return the generator for this type
    */
@@ -26,25 +26,25 @@ public class ABNERAnnotation_Type extends Annotation_Type {
   private final FSGenerator fsGenerator = 
     new FSGenerator() {
       public FeatureStructure createFS(int addr, CASImpl cas) {
-  			 if (ABNERAnnotation_Type.this.useExistingInstance) {
+  			 if (SDRuleBasedRecAnnotation_Type.this.useExistingInstance) {
   			   // Return eq fs instance if already created
-  		     FeatureStructure fs = ABNERAnnotation_Type.this.jcas.getJfsFromCaddr(addr);
+  		     FeatureStructure fs = SDRuleBasedRecAnnotation_Type.this.jcas.getJfsFromCaddr(addr);
   		     if (null == fs) {
-  		       fs = new ABNERAnnotation(addr, ABNERAnnotation_Type.this);
-  			   ABNERAnnotation_Type.this.jcas.putJfsFromCaddr(addr, fs);
+  		       fs = new SDRuleBasedRecAnnotation(addr, SDRuleBasedRecAnnotation_Type.this);
+  			   SDRuleBasedRecAnnotation_Type.this.jcas.putJfsFromCaddr(addr, fs);
   			   return fs;
   		     }
   		     return fs;
-        } else return new ABNERAnnotation(addr, ABNERAnnotation_Type.this);
+        } else return new SDRuleBasedRecAnnotation(addr, SDRuleBasedRecAnnotation_Type.this);
   	  }
     };
   /** @generated */
   @SuppressWarnings ("hiding")
-  public final static int typeIndexID = ABNERAnnotation.typeIndexID;
+  public final static int typeIndexID = SDRuleBasedRecAnnotation.typeIndexID;
   /** @generated 
      @modifiable */
   @SuppressWarnings ("hiding")
-  public final static boolean featOkTst = JCasRegistry.getFeatOkTst("Types.ABNERAnnotation");
+  public final static boolean featOkTst = JCasRegistry.getFeatOkTst("Types.SDRuleBasedRecAnnotation");
  
   /** @generated */
   final Feature casFeat_sentenceID;
@@ -56,7 +56,7 @@ public class ABNERAnnotation_Type extends Annotation_Type {
    */ 
   public String getSentenceID(int addr) {
         if (featOkTst && casFeat_sentenceID == null)
-      jcas.throwFeatMissing("sentenceID", "Types.ABNERAnnotation");
+      jcas.throwFeatMissing("sentenceID", "Types.SDRuleBasedRecAnnotation");
     return ll_cas.ll_getStringValue(addr, casFeatCode_sentenceID);
   }
   /** @generated
@@ -65,7 +65,7 @@ public class ABNERAnnotation_Type extends Annotation_Type {
    */    
   public void setSentenceID(int addr, String v) {
         if (featOkTst && casFeat_sentenceID == null)
-      jcas.throwFeatMissing("sentenceID", "Types.ABNERAnnotation");
+      jcas.throwFeatMissing("sentenceID", "Types.SDRuleBasedRecAnnotation");
     ll_cas.ll_setStringValue(addr, casFeatCode_sentenceID, v);}
     
   
@@ -80,7 +80,7 @@ public class ABNERAnnotation_Type extends Annotation_Type {
    */ 
   public String getEntity(int addr) {
         if (featOkTst && casFeat_entity == null)
-      jcas.throwFeatMissing("entity", "Types.ABNERAnnotation");
+      jcas.throwFeatMissing("entity", "Types.SDRuleBasedRecAnnotation");
     return ll_cas.ll_getStringValue(addr, casFeatCode_entity);
   }
   /** @generated
@@ -89,7 +89,7 @@ public class ABNERAnnotation_Type extends Annotation_Type {
    */    
   public void setEntity(int addr, String v) {
         if (featOkTst && casFeat_entity == null)
-      jcas.throwFeatMissing("entity", "Types.ABNERAnnotation");
+      jcas.throwFeatMissing("entity", "Types.SDRuleBasedRecAnnotation");
     ll_cas.ll_setStringValue(addr, casFeatCode_entity, v);}
     
   
@@ -101,7 +101,7 @@ public class ABNERAnnotation_Type extends Annotation_Type {
 	 * @param jcas JCas
 	 * @param casType Type 
 	 */
-  public ABNERAnnotation_Type(JCas jcas, Type casType) {
+  public SDRuleBasedRecAnnotation_Type(JCas jcas, Type casType) {
     super(jcas, casType);
     casImpl.getFSClassRegistry().addGeneratorForType((TypeImpl)this.casType, getFSGenerator());
 
