@@ -23,7 +23,7 @@ import Types.SentenceAnnotation;
 import Types.lingpileAnnotation;
 
 public class SDEvaluatorAnnotator extends JCasAnnotator_ImplBase{
-  private static final double threshold = 1;
+  private static final double threshold = 0.6;
   private static HashMap<String, ArrayList<String>> abnerHashMap;
   private int count = 0;
   
