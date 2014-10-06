@@ -14,6 +14,14 @@ import org.apache.uima.jcas.JCas;
 import org.apache.uima.util.Progress;
 
 
+/**
+ * This file collection reader is in charge of dealing input file
+ * @author Rui Wang
+ * 
+ * <ul>
+ * <li><code>InputFile</code> - path to file containing sentences.</li>
+ * </ul>
+ */
 public class SDFilesCollectionReader extends CollectionReader_ImplBase {
 
   private File inputfile;
@@ -23,7 +31,7 @@ public class SDFilesCollectionReader extends CollectionReader_ImplBase {
   private String[] sentencs;
   
   /**
-   * 
+   * To initialize everything necessary.
    */
   public void initialize(){
     inputfile = new File((String)getConfigParameterValue("InputFile"));
@@ -45,7 +53,14 @@ public class SDFilesCollectionReader extends CollectionReader_ImplBase {
   }
   
   /**
-   * 
+   *  Reads the next sentence from the input file, and outputs into the CAS.
+   *  @param  aCAS 
+   *        CAS corresponding to the completed processing
+   *        
+   *  @throws IOException
+   *          throws if there is a IO error
+   *  @throws CollectionException
+   *          throws if collection operations fails
    */
   public void getNext(CAS aCAS) throws IOException, CollectionException {
     JCas jcas;
@@ -54,26 +69,29 @@ public class SDFilesCollectionReader extends CollectionReader_ImplBase {
     } catch (Exception e) {
       throw new CollectionException(e);
     }
-    // read all sentences into a string and put it into CAS
-    
-
-   // System.out.println("Reader");
+    // read a sentence into a string and put it into CAS
     jcas.setDocumentText(sentencs[index]);
     index++;
   }
 
-  @Override
+  /**
+   * @see org.apache.uima.collection.CollectionReader#hasNext()
+   */
   public boolean hasNext() throws IOException, CollectionException {
     return index < num;
   }
 
-  @Override
+  /**
+   * @see org.apache.uima.collection.CollectionReader#hasNext()
+   */
   public Progress[] getProgress() {
     // TODO Auto-generated method stub
     return null;
   }
 
-  @Override
+  /**
+   * @see org.apache.uima.collection.CollectionReader#hasNext()
+   */
   public void close() throws IOException {
     // TODO Auto-generated method stub
     

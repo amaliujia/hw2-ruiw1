@@ -2,10 +2,13 @@ package SDConsumer;
 
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Scanner;
 
 import javax.wsdl.Output;
 
@@ -15,13 +18,21 @@ import org.apache.uima.collection.CasConsumer_ImplBase;
 import org.apache.uima.collection.CollectionException;
 import org.apache.uima.jcas.JCas;
 import org.apache.uima.jcas.tcas.Annotation;
+import org.apache.uima.resource.ResourceInitializationException;
 import org.apache.uima.resource.ResourceProcessException;
+import org.springframework.scripting.support.StaticScriptSource;
 
 import SDAnnotator.SDSentenceAnnotator;
 import Types.ABNERAnnotation;
 import Types.SDGeneEntity;
 import Types.SentenceAnnotation;
 
+/**
+ * This is a printer which print gene terms.
+ * It also integrate statistic module
+ * @author Rui Wang
+ *
+ */
 public class SDConsumer extends CasConsumer_ImplBase{
 
   public final static String output = "src/main/resources/myout";
@@ -29,6 +40,11 @@ public class SDConsumer extends CasConsumer_ImplBase{
   private Writer fileWriter = null;
   private HashMap<String, String> map;
   
+  /**
+   * Initialize output file.
+   * @throws ResourceInitializationException
+   *          throws when resource initialization fails.
+   */
   public void initialize(){
     try {
       fileWriter = new FileWriter(new File(output));//new BufferedWriter(new FileWriter(output));
@@ -38,6 +54,14 @@ public class SDConsumer extends CasConsumer_ImplBase{
     map = new HashMap<String, String>();
   }
   
+  /**
+   * @param aCAS
+   *        CAS corresponding to complete processing
+   *        
+   * @throws ResourceProcessException
+   *        throws when resource process fails.
+   * @see org.apache.uima.collection.CasConsumer#processCas(CAS aCAS)
+   */  
   public void processCas(CAS aCAS) throws ResourceProcessException {
     //FileWriter fileWriter;
     JCas jcas = null;
@@ -78,12 +102,15 @@ public class SDConsumer extends CasConsumer_ImplBase{
     }
   }
 
-  
+ 
+  /**
+   * dealloc and close everything
+   */
   public void destroy() {
     try {
       fileWriter.close();
+      this.statictics();
     } catch (IOException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
   }
@@ -104,5 +131,50 @@ public class SDConsumer extends CasConsumer_ImplBase{
     }
     return count;
     
-  } 
+  }
+  
+  /**
+   * This is math function where I calculate Pricision, Recall and F1 score.
+   * @throws FileNotFoundException
+   */
+  private void statictics() throws FileNotFoundException{
+    File sampleout = new File("src/main/resources/SampleData/sample.out");
+    File ourout = new File("src/main/resources/myout");
+    ArrayList<String> sampleArrayList = new ArrayList<String>();
+    ArrayList<String> hit = new ArrayList<String>();
+    ArrayList<String> miss = new ArrayList<String>();
+    Scanner s1;
+    try {
+      s1 = new Scanner(sampleout);
+    } catch (FileNotFoundException e) { // if fail to find standard file, then return
+     return;
+    }
+    while(s1.hasNext()){
+      String sfs = s1.nextLine();
+      sampleArrayList.add(sfs);
+    }     
+    Scanner s2;
+    try {
+      s2 = new Scanner(ourout);
+    } catch (FileNotFoundException e) {// if fail to find output file.
+      return;
+    }
+    while(s2.hasNext()){
+      String temp = s2.nextLine();
+      if(sampleArrayList.contains(temp)){
+        hit.add(temp);
+      }else{
+        miss.add(temp);
+      }
+    }
+    double a = hit.size();
+    double b = miss.size();
+    double c = sampleArrayList.size();
+    double precison = (a / (b + a));
+    double recall = (a / c);
+    System.out.println("Hit  " + hit.size() + "\n" + "miss " + miss.size() + "\n");
+    System.out.println("Presion: " + precison);
+    System.out.println("Recall: " + recall);
+    System.out.println("F1 measure " + (2 * (precison * recall)) / (precison + recall));
+  }
 }

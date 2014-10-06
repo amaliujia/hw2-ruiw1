@@ -22,16 +22,19 @@ import Types.ABNERAnnotation;
 import Types.SentenceAnnotation;
 import abner.Tagger;
 
+/**
+ * ABNER stands for a Biomedical Name Entity Recognizer.
+ * @author Rui Wang
+ */
 public class SDABNERAnnotator extends JCasAnnotator_ImplBase{
 
-   //private static Tagger aABNERTagger;
- // static final String
-  //private File file;
-  //private BufferedWriter bufferedWriter;
   private  Tagger aABNERTagger;
   private int count = 0;
-  //private FileWriter fileWriter;
   
+  /**
+   * Overwrite initialize function to get a chance.
+   * @param aContexct 
+   */
   public void initialize(UimaContext aContext)
           throws ResourceInitializationException{
 
@@ -42,23 +45,21 @@ public class SDABNERAnnotator extends JCasAnnotator_ImplBase{
   /**
    * 
    */
-  public void process(JCas aJCas) throws AnalysisEngineProcessException {
-    
-    //if(aABNERTagger == null) aABNERTagger = new Tagger(0);
-     //Tagger aABNERTagger = new Tagger();     
+  public void process(JCas aJCas) throws AnalysisEngineProcessException {    
      FSIterator<Annotation> sentenceIterator = aJCas.getAnnotationIndex(SentenceAnnotation.type).iterator();
      while(sentenceIterator.hasNext()){
+       //get sentence annotation, including sentence id and sentence content
        SentenceAnnotation aSentenceTag = (SentenceAnnotation)sentenceIterator.get();
        String s = aSentenceTag.getText();
+       
+       // utilzie ABNER tagger
        String[][] result = aABNERTagger.getEntities(s);
        for(int i = 0; i < result[1].length; i++){
-         //if(result[1][i].equals("DNA") || result[1][i].equals("RNA") || result[1][i].equals("Protein") ||result[1][i].equals("Cell Line")){
            ABNERAnnotation abnerAnnotation = new ABNERAnnotation(aJCas);
            abnerAnnotation.setSentenceID(aSentenceTag.getSentenceID());
            abnerAnnotation.setEntity(result[0][i]);
            abnerAnnotation.addToIndexes(aJCas);
            count++;
-         //}
        }        
        sentenceIterator.moveToNext();
     }
