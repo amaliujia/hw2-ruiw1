@@ -66,6 +66,8 @@ public class SDEvaluatorAnnotator extends JCasAnnotator_ImplBase{
             SDGeneEntity aSDGeneEntity = new SDGeneEntity(aJCas);
             aSDGeneEntity.setSentenceID(sentenceID);
             aSDGeneEntity.setEntity(geneString);
+            aSDGeneEntity.setBegin(alingAnnotation.getBegin());
+            aSDGeneEntity.setEnd(alingAnnotation.getEnd());
             aSDGeneEntity.addToIndexes(aJCas);
             count++;
             break;
@@ -76,6 +78,8 @@ public class SDEvaluatorAnnotator extends JCasAnnotator_ImplBase{
             SDGeneEntity aSDGeneEntity = new SDGeneEntity(aJCas);
             aSDGeneEntity.setSentenceID(sentenceID);
             aSDGeneEntity.setEntity(geneString);
+            aSDGeneEntity.setBegin(alingAnnotation.getBegin());
+            aSDGeneEntity.setEnd(alingAnnotation.getEnd());
             aSDGeneEntity.addToIndexes(aJCas);
             count++;
           }

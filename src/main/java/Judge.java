@@ -18,9 +18,9 @@ public class Judge {
      Scanner s1 = new Scanner(sampleout);
      while(s1.hasNext()){
        String sfs = s1.nextLine();
-       String[] c = sfs.split("\\|");
-       sampleArrayList.add(c[2]);
-       //sampleArrayList.add(sfs);
+//       String[] c = sfs.split("\\|");
+//       sampleArrayList.add(c[2]);
+       sampleArrayList.add(sfs);
      }     
      Scanner s2 = new Scanner(ourout);
      while(s2.hasNext()){

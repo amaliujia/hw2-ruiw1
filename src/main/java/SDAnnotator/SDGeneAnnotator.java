@@ -118,7 +118,7 @@ public class SDGeneAnnotator extends JCasAnnotator_ImplBase {
              gene.setBegin(chunk.start());
              gene.setEnd(chunk.end());
              gene.setText(s.substring(chunk.start(),chunk.end()));
-            // System.out.println(Math.pow(2.0, chunk.score()));
+             //System.out.println(chunk.start() + "  " + chunk.end());
              gene.setScore(Math.pow(2.0, chunk.score()));
              gene.addToIndexes(aJCas);
              i++;
