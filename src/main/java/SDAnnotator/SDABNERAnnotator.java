@@ -64,6 +64,7 @@ public class SDABNERAnnotator extends JCasAnnotator_ImplBase{
            ABNERAnnotation abnerAnnotation = new ABNERAnnotation(aJCas);
            abnerAnnotation.setSentenceID(aSentenceTag.getSentenceID());
            abnerAnnotation.setEntity(result[0][i]);
+           abnerAnnotation.setScore(1.0);
            abnerAnnotation.addToIndexes(aJCas);
            count++;
        }        

@@ -43,8 +43,9 @@ import Types.lingpileAnnotation;
  *
  */
 public class SDEvaluatorAnnotator extends JCasAnnotator_ImplBase{
-  private static final double threshold = 1.0;
+  private static final double threshold = 0.6;
   private static HashMap<String, ArrayList<String>> abnerHashMap;
+  //private static HashMap<String, ArrayList<String>> lingpipeHashMap;
   private int count = 0;
   
   /**
@@ -53,6 +54,7 @@ public class SDEvaluatorAnnotator extends JCasAnnotator_ImplBase{
    */
   public void initialize(UimaContext aContext){
     abnerHashMap = new HashMap<String, ArrayList<String>>();
+    //lingpipeHashMap = new HashMap<String, ArrayList<String>>();
     System.out.println("I am in SDEvaluatorAnnotator-------------------------");
   }
 
@@ -93,6 +95,7 @@ public class SDEvaluatorAnnotator extends JCasAnnotator_ImplBase{
         ArrayList<String> array = abnerHashMap.get(sentenceID);
         int i = 0;
         for(; i < array.size(); i++){
+          
           //if lingpipe and ABNER mark same gene tag in the same sentence
           if(array.get(i).equals(geneString)){
             SDGeneEntity aSDGeneEntity = new SDGeneEntity(aJCas);
@@ -105,6 +108,7 @@ public class SDEvaluatorAnnotator extends JCasAnnotator_ImplBase{
             break;
           }
         }
+        
         //lingpipe mark a tag that ABNER doesn't
         if(i >= array.size()){
           if(alingAnnotation.getScore() >= this.threshold){ //see if this gene tag should be trusted

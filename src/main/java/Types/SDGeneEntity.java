@@ -11,8 +11,8 @@ import org.apache.uima.jcas.tcas.Annotation;
 
 
 /** 
- * Updated by JCasGen Sun Oct 05 14:41:48 EDT 2014
- * XML source: /Users/amaliujia/Documents/workspace/hw2-ruiw1/src/main/resources/TypeSystems/SDTypeSystem.xml
+ * Updated by JCasGen Tue Oct 07 15:24:45 EDT 2014
+ * XML source: /Users/amaliujia/Documents/workspace/hw2-ruiw1/src/main/resources/TypeSystems/deiis_types.xml
  * @generated */
 public class SDGeneEntity extends Annotation {
   /** @generated

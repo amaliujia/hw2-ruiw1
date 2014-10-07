@@ -7,11 +7,18 @@
     <description/>
     <version>1.0</version>
     <vendor/>
-    <configurationParameters/>
+    <configurationParameters>
+      <configurationParameter>
+        <name>OutputFile</name>
+        <type>String</type>
+        <multiValued>false</multiValued>
+        <mandatory>true</mandatory>
+      </configurationParameter>
+    </configurationParameters>
     <configurationParameterSettings/>
     <typeSystemDescription>
       <imports>
-        <import location="../TypeSystems/SDTypeSystem.xml"/>
+        <import location="../TypeSystems/deiis_types.xml"/>
       </imports>
     </typeSystemDescription>
     <typePriorities/>

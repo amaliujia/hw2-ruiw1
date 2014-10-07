@@ -35,7 +35,7 @@ import Types.SentenceAnnotation;
  */
 public class SDConsumer extends CasConsumer_ImplBase{
 
-  public final static String output = "src/main/resources/myout";
+  public String output;
    
   private Writer fileWriter = null;
   private HashMap<String, String> map;
@@ -46,6 +46,7 @@ public class SDConsumer extends CasConsumer_ImplBase{
    *          throws when resource initialization fails.
    */
   public void initialize(){
+    output = (String)getConfigParameterValue("OutputFile");
     try {
       fileWriter = new FileWriter(new File(output));//new BufferedWriter(new FileWriter(output));
     } catch (IOException e) {
@@ -139,7 +140,7 @@ public class SDConsumer extends CasConsumer_ImplBase{
    */
   private void statictics() throws FileNotFoundException{
     File sampleout = new File("src/main/resources/SampleData/sample.out");
-    File ourout = new File("src/main/resources/myout");
+    File ourout = new File(output);
     ArrayList<String> sampleArrayList = new ArrayList<String>();
     ArrayList<String> hit = new ArrayList<String>();
     ArrayList<String> miss = new ArrayList<String>();

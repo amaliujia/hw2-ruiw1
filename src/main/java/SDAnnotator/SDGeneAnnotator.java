@@ -55,6 +55,8 @@ import com.aliasi.chunk.ConfidenceChunker;
 import com.aliasi.chunk.HmmChunker;
 import com.aliasi.util.AbstractExternalizable;
 
+import edu.cmu.deiis.types.GeneAnnotation;
+
 
 /**
  * Description: GeneAnnotator is responsible for record 
@@ -116,6 +118,7 @@ public class SDGeneAnnotator extends JCasAnnotator_ImplBase {
            chunk = iterator.next();
            if(chunk != null){
              lingpileAnnotation gene = new lingpileAnnotation(aJCas);
+            // GeneAnnotation gene = new GeneAnnotation(aJCas);
              gene.setSentenceID(tag.getSentenceID());
              gene.setBegin(chunk.start());
              gene.setEnd(chunk.end());

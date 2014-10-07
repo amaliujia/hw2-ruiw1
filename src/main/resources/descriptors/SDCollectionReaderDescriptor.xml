@@ -18,7 +18,7 @@
     <configurationParameterSettings/>
     <typeSystemDescription>
       <imports>
-        <import location="../TypeSystems/SDTypeSystem.xml"/>
+        <import location="../TypeSystems/deiis_types.xml"/>
       </imports>
     </typeSystemDescription>
     <typePriorities/>
