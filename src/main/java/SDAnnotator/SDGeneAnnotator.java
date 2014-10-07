@@ -55,6 +55,7 @@ import com.aliasi.chunk.ConfidenceChunker;
 import com.aliasi.chunk.HmmChunker;
 import com.aliasi.util.AbstractExternalizable;
 
+
 /**
  * Description: GeneAnnotator is responsible for record 
  * every gene mention and the id of this gene name's sentence.
@@ -84,6 +85,7 @@ public class SDGeneAnnotator extends JCasAnnotator_ImplBase {
     e.printStackTrace();
   }
     System.out.println("I am in SDGeneAnnotator-------------------------");
+
   }
   
   

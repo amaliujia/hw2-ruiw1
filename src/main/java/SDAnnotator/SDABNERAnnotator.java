@@ -43,7 +43,13 @@ public class SDABNERAnnotator extends JCasAnnotator_ImplBase{
   }
   
   /**
+   * This process runs ABNER
    * 
+   * @param aJCas
+   *        CAS corresponding to the complete processing
+   * @throws AnalysisEngineProcessException
+   *         happen when wrongly use UIMA objects
+   *
    */
   public void process(JCas aJCas) throws AnalysisEngineProcessException {    
      FSIterator<Annotation> sentenceIterator = aJCas.getAnnotationIndex(SentenceAnnotation.type).iterator();

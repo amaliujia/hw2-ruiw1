@@ -51,8 +51,7 @@ public class SDEvaluatorAnnotator extends JCasAnnotator_ImplBase{
    * Overwrite initialize function to get a chance.
    * @param aContexct 
    */
-  public void initialize(UimaContext aContext)
-          throws ResourceInitializationException{
+  public void initialize(UimaContext aContext){
     abnerHashMap = new HashMap<String, ArrayList<String>>();
     System.out.println("I am in SDEvaluatorAnnotator-------------------------");
   }
@@ -89,12 +88,13 @@ public class SDEvaluatorAnnotator extends JCasAnnotator_ImplBase{
       lingpileAnnotation alingAnnotation = (lingpileAnnotation)it.get();
       String sentenceID = alingAnnotation.getSentenceID();
       String geneString = alingAnnotation.getText();
-      //if lingpipe and ABNER mark same gene tag
+      //retrieval a sentence from abnerHashMap
       if(abnerHashMap.containsKey(sentenceID)){
         ArrayList<String> array = abnerHashMap.get(sentenceID);
         int i = 0;
         for(; i < array.size(); i++){
-          if(array.get(i).equals(geneString)){ // they have something in common
+          //if lingpipe and ABNER mark same gene tag in the same sentence
+          if(array.get(i).equals(geneString)){
             SDGeneEntity aSDGeneEntity = new SDGeneEntity(aJCas);
             aSDGeneEntity.setSentenceID(sentenceID);
             aSDGeneEntity.setEntity(geneString);
@@ -107,7 +107,7 @@ public class SDEvaluatorAnnotator extends JCasAnnotator_ImplBase{
         }
         //lingpipe mark a tag that ABNER doesn't
         if(i >= array.size()){
-          if(alingAnnotation.getScore() >= this.threshold){
+          if(alingAnnotation.getScore() >= this.threshold){ //see if this gene tag should be trusted
             SDGeneEntity aSDGeneEntity = new SDGeneEntity(aJCas);
             aSDGeneEntity.setSentenceID(sentenceID);
             aSDGeneEntity.setEntity(geneString);
