@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 import org.apache.uima.UimaContext;
 import org.apache.uima.analysis_component.JCasAnnotator_ImplBase;
@@ -17,6 +18,7 @@ import org.apache.uima.resource.ResourceInitializationException;
 import com.aliasi.chunk.HmmChunker;
 import com.aliasi.util.AbstractExternalizable;
 
+import edu.cmu.deiis.types.GeneAnnotation;
 import Types.ABNERAnnotation;
 import Types.SDGeneEntity;
 import Types.SentenceAnnotation;
@@ -44,17 +46,12 @@ import Types.lingpileAnnotation;
  */
 public class SDEvaluatorAnnotator extends JCasAnnotator_ImplBase{
   private static final double threshold = 0.6;
-  private static HashMap<String, ArrayList<String>> abnerHashMap;
-  //private static HashMap<String, ArrayList<String>> lingpipeHashMap;
   private int count = 0;
-  
   /**
    * Overwrite initialize function to get a chance.
    * @param aContexct 
    */
   public void initialize(UimaContext aContext){
-    abnerHashMap = new HashMap<String, ArrayList<String>>();
-    //lingpipeHashMap = new HashMap<String, ArrayList<String>>();
     System.out.println("I am in SDEvaluatorAnnotator-------------------------");
   }
 
@@ -67,66 +64,59 @@ public class SDEvaluatorAnnotator extends JCasAnnotator_ImplBase{
    *            Happens when wrongly use UIMA objects
    */
   public void process(JCas aJCas) throws AnalysisEngineProcessException {
-    // save output of ABNERAnnotator into hashmap
-    FSIterator<Annotation> it = aJCas.getAnnotationIndex(ABNERAnnotation.type).iterator();
-    while(it.hasNext()){
-      ABNERAnnotation abnerAnnotation = (ABNERAnnotation)it.get();
-      String sentenceID = abnerAnnotation.getSentenceID();
-      ArrayList<String> arrayList;
-      if(!abnerHashMap.containsKey(sentenceID)){
-        arrayList = new ArrayList<String>();
-        arrayList.add(abnerAnnotation.getEntity());
-        abnerHashMap.put(sentenceID, arrayList);
-      }else{
-        arrayList = abnerHashMap.get(sentenceID);
-        arrayList.add(abnerAnnotation.getEntity());
-        abnerHashMap.put(sentenceID, arrayList);
-      }
-      it.moveToNext();
+    
+    HashMap<String, Annotation> abnerHashMap = new HashMap<String, Annotation>();
+    HashMap<String, Annotation> lingpipeHashMap = new HashMap<String, Annotation>();
+    HashMap<String, Annotation> intersectionHashMap = new HashMap<String, Annotation>();
+    int lingpipec = 0;
+    int abener = 0;
+    //save lingpipe annotator and abner annotator into different hashmap
+    FSIterator<Annotation> it = aJCas.getAnnotationIndex(GeneAnnotation.type).iterator();
+    while (it.hasNext()) {
+        GeneAnnotation geneAnnotation = (GeneAnnotation) it.next();
+        if(geneAnnotation.getCasProcessorId().equals("0")){
+            lingpipeHashMap.put(geneAnnotation.getEntity(), geneAnnotation);
+            lingpipec++;
+        }else{
+            abnerHashMap.put(geneAnnotation.getEntity(), geneAnnotation);
+            abener++;
+        }
     }
     
-    it = aJCas.getAnnotationIndex(lingpileAnnotation.type).iterator();
-    while(it.hasNext()){
-      lingpileAnnotation alingAnnotation = (lingpileAnnotation)it.get();
-      String sentenceID = alingAnnotation.getSentenceID();
-      String geneString = alingAnnotation.getText();
-      //retrieval a sentence from abnerHashMap
-      if(abnerHashMap.containsKey(sentenceID)){
-        ArrayList<String> array = abnerHashMap.get(sentenceID);
-        int i = 0;
-        for(; i < array.size(); i++){
-          
-          //if lingpipe and ABNER mark same gene tag in the same sentence
-          if(array.get(i).equals(geneString)){
-            SDGeneEntity aSDGeneEntity = new SDGeneEntity(aJCas);
-            aSDGeneEntity.setSentenceID(sentenceID);
-            aSDGeneEntity.setEntity(geneString);
-            aSDGeneEntity.setBegin(alingAnnotation.getBegin());
-            aSDGeneEntity.setEnd(alingAnnotation.getEnd());
-            aSDGeneEntity.addToIndexes(aJCas);
-            count++;
-            break;
-          }
-        }
-        
-        //lingpipe mark a tag that ABNER doesn't
-        if(i >= array.size()){
-          if(alingAnnotation.getScore() >= this.threshold){ //see if this gene tag should be trusted
-            SDGeneEntity aSDGeneEntity = new SDGeneEntity(aJCas);
-            aSDGeneEntity.setSentenceID(sentenceID);
-            aSDGeneEntity.setEntity(geneString);
-            aSDGeneEntity.setBegin(alingAnnotation.getBegin());
-            aSDGeneEntity.setEnd(alingAnnotation.getEnd());
-            aSDGeneEntity.addToIndexes(aJCas);
-           // count++;
-          }
-        }
-      }else{
-       //  System.out.println("Size of map " + abnerHashMap.size() + "  " + alingAnnotation.getSentenceID() + "  " + alingAnnotation.getText() + "  " + alingAnnotation.getScore());         
+    //return gene tag marked by lingpipe if confidence is greater than 0.6
+    Iterator iterator = lingpipeHashMap.keySet().iterator();
+    while (iterator.hasNext()) {
+      GeneAnnotation gene = (GeneAnnotation) lingpipeHashMap.get(iterator.next());
+      if(gene.getConfidence() >= 0.6){
+        SDGeneEntity aSDGeneEntity = new SDGeneEntity(aJCas);
+        aSDGeneEntity.setSentenceID(gene.getSentenceID());
+        aSDGeneEntity.setEntity(gene.getEntity());
+        aSDGeneEntity.setBegin(gene.getBegin());
+        aSDGeneEntity.setEnd(gene.getEnd());
+        aSDGeneEntity.addToIndexes(aJCas);
+        intersectionHashMap.put("" + gene.getBegin(), gene);
+        intersectionHashMap.put("" + gene.getEnd(), gene);
+        intersectionHashMap.put(gene.getEntity(), gene);
       }
-      it.moveToNext();
     }
     
+    iterator = abnerHashMap.keySet().iterator();
+    while(iterator.hasNext()){
+      GeneAnnotation gene = (GeneAnnotation) abnerHashMap.get(iterator.next());
+      if((!intersectionHashMap.containsKey(gene.getBegin())) 
+              && !(intersectionHashMap.containsKey(gene.getEnd()))
+              && !(intersectionHashMap.containsKey(gene.getEntity()))
+              ){
+        SDGeneEntity aSDGeneEntity = new SDGeneEntity(aJCas);
+        aSDGeneEntity.setSentenceID(gene.getSentenceID());
+        aSDGeneEntity.setEntity(gene.getEntity());
+        aSDGeneEntity.setBegin(gene.getBegin());
+        aSDGeneEntity.setEnd(gene.getEnd());
+        aSDGeneEntity.addToIndexes(aJCas); 
+      }
+    }
+    
+    System.out.println(lingpipec + "  " + abener);
   }
   public void destroy(){
     System.out.println("Final product Combination  " + count); 

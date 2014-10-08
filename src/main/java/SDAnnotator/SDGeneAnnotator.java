@@ -68,7 +68,7 @@ import edu.cmu.deiis.types.GeneAnnotation;
 
 public class SDGeneAnnotator extends JCasAnnotator_ImplBase {
   
-  private final static String dataset = "src/main/resources/SampleData/ne-en-bio-genetag.HmmChunker";
+  private final static String dataset = "src/main/resources/SampleData/trainer"; //"src/main/resources/SampleData/ne-en-bio-genetag.HmmChunker";
   private File chunkerFile;
  // private Chunker chunker;
   private ConfidenceChunker chunker;
@@ -104,7 +104,7 @@ public class SDGeneAnnotator extends JCasAnnotator_ImplBase {
     // System.out.println("GeneAnnotator");
 
     // Use UMM chunker to extract gene terms
-
+     int thisTime = 0;
       FSIterator<Annotation> it = aJCas.getAnnotationIndex(SentenceAnnotation.type).iterator();
       while(it.hasNext()){
         SentenceAnnotation tag =  (SentenceAnnotation)it.get();
@@ -117,20 +117,21 @@ public class SDGeneAnnotator extends JCasAnnotator_ImplBase {
          while(iterator.hasNext()){
            chunk = iterator.next();
            if(chunk != null){
-             lingpileAnnotation gene = new lingpileAnnotation(aJCas);
-            // GeneAnnotation gene = new GeneAnnotation(aJCas);
+             GeneAnnotation gene = new GeneAnnotation(aJCas);
              gene.setSentenceID(tag.getSentenceID());
              gene.setBegin(chunk.start());
              gene.setEnd(chunk.end());
-             gene.setText(s.substring(chunk.start(),chunk.end()));
-             //System.out.println(chunk.start() + "  " + chunk.end());
-             gene.setScore(Math.pow(2.0, chunk.score()));
+             gene.setEntity(s.substring(chunk.start(),chunk.end()));
+             gene.setCasProcessorId("0");
+             gene.setConfidence(Math.pow(2.0, chunk.score()));
              gene.addToIndexes(aJCas);
+             thisTime++;
              i++;
            }
          }
          it.moveToNext();
-      }  
+      }
+      System.out.println(thisTime);
   }
    public void destroy(){
      System.out.println("Final product lingpipe  " + i); 

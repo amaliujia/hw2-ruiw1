@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.HashMap;
 import java.util.Vector;
+import java.util.regex.Pattern;
 
 import org.apache.uima.UimaContext;
 import org.apache.uima.analysis_component.JCasAnnotator_ImplBase;
@@ -18,6 +19,7 @@ import org.apache.uima.resource.ResourceInitializationException;
 import org.apache.xmlbeans.impl.xb.xsdschema.Public;
 import org.springframework.context.support.StaticApplicationContext;
 
+import edu.cmu.deiis.types.GeneAnnotation;
 import Types.ABNERAnnotation;
 import Types.SentenceAnnotation;
 import abner.Tagger;
@@ -37,7 +39,7 @@ public class SDABNERAnnotator extends JCasAnnotator_ImplBase{
    */
   public void initialize(UimaContext aContext)
           throws ResourceInitializationException{
-
+    
     System.out.println("I am in ABNERTagger-------------------------");
     aABNERTagger = new Tagger(0);
   }
@@ -60,13 +62,26 @@ public class SDABNERAnnotator extends JCasAnnotator_ImplBase{
        
        // utilzie ABNER tagger
        String[][] result = aABNERTagger.getEntities(s);
+       
+       int start = 0;
+       int thisTime = 0;
        for(int i = 0; i < result[1].length; i++){
-           ABNERAnnotation abnerAnnotation = new ABNERAnnotation(aJCas);
+         start = s.indexOf(result[0][i]);
+         if((start != -1) 
+            && (Pattern.matches("[0-9a-zA-Z-\\s]+", result[0][i])) 
+            && !result[1][i].equals("Cell Type") 
+            && !result[1][i].equals("RNA")
+            && (result[0][i].length() > 1)){
+           //ABNERAnnotation abnerAnnotation = new ABNERAnnotation(aJCas);
+           GeneAnnotation abnerAnnotation = new GeneAnnotation(aJCas);
            abnerAnnotation.setSentenceID(aSentenceTag.getSentenceID());
            abnerAnnotation.setEntity(result[0][i]);
-           abnerAnnotation.setScore(1.0);
+           abnerAnnotation.setBegin(start);
+           abnerAnnotation.setEnd(start + result[0][i].length());
+           abnerAnnotation.setCasProcessorId("1");
            abnerAnnotation.addToIndexes(aJCas);
            count++;
+         }
        }        
        sentenceIterator.moveToNext();
     }
