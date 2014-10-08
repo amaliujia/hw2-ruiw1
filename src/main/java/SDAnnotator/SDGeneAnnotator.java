@@ -109,10 +109,8 @@ public class SDGeneAnnotator extends JCasAnnotator_ImplBase {
       while(it.hasNext()){
         SentenceAnnotation tag =  (SentenceAnnotation)it.get();
          String s = tag.getText();
-         //Chunking chunking = ((Chunker) chunker).chunk(s);
-         //Set<Chunk> chunkSet = chunking.chunkSet();
+         //use confidence chunker of lingpipe
          Iterator<Chunk> iterator = chunker.nBestChunks(s.toCharArray(), 0, s.length(), 60);
-         //for(Chunk chunk : chunkSet){
          Chunk chunk;
          while(iterator.hasNext()){
            chunk = iterator.next();
