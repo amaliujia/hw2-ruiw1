@@ -68,11 +68,8 @@ public class SDABNERAnnotator extends JCasAnnotator_ImplBase{
        for(int i = 0; i < result[1].length; i++){
          start = s.indexOf(result[0][i]);
          if((start != -1) 
-            && (Pattern.matches("[0-9a-zA-Z-\\s]+", result[0][i])) 
-            && !result[1][i].equals("Cell Type") 
-            && !result[1][i].equals("RNA")
+            && !(Pattern.matches("[0-9a-zA-Z-\\s]+", result[0][i])) 
             && (result[0][i].length() > 1)){
-           //ABNERAnnotation abnerAnnotation = new ABNERAnnotation(aJCas);
            GeneAnnotation abnerAnnotation = new GeneAnnotation(aJCas);
            abnerAnnotation.setSentenceID(aSentenceTag.getSentenceID());
            abnerAnnotation.setEntity(result[0][i]);

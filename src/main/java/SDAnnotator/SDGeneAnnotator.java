@@ -125,13 +125,11 @@ public class SDGeneAnnotator extends JCasAnnotator_ImplBase {
              gene.setCasProcessorId("0");
              gene.setConfidence(Math.pow(2.0, chunk.score()));
              gene.addToIndexes(aJCas);
-             thisTime++;
              i++;
            }
          }
          it.moveToNext();
       }
-      System.out.println(thisTime);
   }
    public void destroy(){
      System.out.println("Final product lingpipe  " + i); 
