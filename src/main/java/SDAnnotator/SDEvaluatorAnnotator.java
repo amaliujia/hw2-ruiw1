@@ -52,7 +52,6 @@ public class SDEvaluatorAnnotator extends JCasAnnotator_ImplBase{
    * @param aContexct 
    */
   public void initialize(UimaContext aContext){
-    System.out.println("I am in SDEvaluatorAnnotator");
   }
 
   
@@ -115,7 +114,6 @@ public class SDEvaluatorAnnotator extends JCasAnnotator_ImplBase{
       }
     }
     
-   // System.out.println(lingpipec + "  " + abener);
   }
   public void destroy(){
     System.out.println("Final product Combination  " + count); 

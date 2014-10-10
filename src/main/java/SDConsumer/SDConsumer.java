@@ -50,7 +50,7 @@ public class SDConsumer extends CasConsumer_ImplBase{
     
     output = (String)getConfigParameterValue("OutputFile");
     try {
-      fileWriter = new FileWriter(new File(output));//new BufferedWriter(new FileWriter(output));
+      fileWriter = new FileWriter(new File(output));
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -82,7 +82,7 @@ public class SDConsumer extends CasConsumer_ImplBase{
     }
     
     try {
-      //fileWriter = new FileWriter(new File(output), true);
+
       FSIterator<Annotation> geneIterator = jcas.getAnnotationIndex(SDGeneEntity.type).iterator();
       while (geneIterator.hasNext()) {
         SDGeneEntity abnerAnnotation = (SDGeneEntity)geneIterator.get();
@@ -95,9 +95,7 @@ public class SDConsumer extends CasConsumer_ImplBase{
         int partb = countBlanks(sentenceContent.substring(start, end));
         start = start - parta;
         end = end - parta - partb - 1;
-        System.out.println(abnerAnnotation.getSentenceID());
         fileWriter.append(abnerAnnotation.getSentenceID() + "|" + start+ " " + end + "|" + abnerAnnotation.getEntity() + "\n");
-
         geneIterator.moveToNext(); 
       }
     }catch(Exception e){
@@ -112,7 +110,7 @@ public class SDConsumer extends CasConsumer_ImplBase{
   public void destroy() {
     try {
       fileWriter.close();
-      this.statictics();
+      //this.statictics();
     } catch (IOException e) {
       e.printStackTrace();
     }

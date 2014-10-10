@@ -39,8 +39,6 @@ public class SDABNERAnnotator extends JCasAnnotator_ImplBase{
    */
   public void initialize(UimaContext aContext)
           throws ResourceInitializationException{
-    
-    System.out.println("I am in ABNERTagger");
     aABNERTagger = new Tagger(0);
   }
   

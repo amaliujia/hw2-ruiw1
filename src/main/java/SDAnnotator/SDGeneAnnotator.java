@@ -68,19 +68,17 @@ import edu.cmu.deiis.types.GeneAnnotation;
 
 public class SDGeneAnnotator extends JCasAnnotator_ImplBase {
   
-  //private final static String dataset = "src/main/resources/SampleData/trainer"; //"src/main/resources/SampleData/ne-en-bio-genetag.HmmChunker";
-  private File chunkerFile;
- // private Chunker chunker;
+
   private ConfidenceChunker chunker;
   private int i = 0;
   
+  /**
+   * Initialization phase
+   */
   public void initialize(UimaContext aContext)
           throws ResourceInitializationException{
-  // chunkerFile = new File(dataset);
     super.initialize(aContext);
    try {
-    //chunker = (ConfidenceChunker) AbstractExternalizable.readObject(chunkerFile);
-     System.out.println((String) aContext.getConfigParameterValue("Gene"));
      chunker = (ConfidenceChunker)AbstractExternalizable.readResourceObject(SDGeneAnnotator.class, (String) aContext.getConfigParameterValue("Gene"));
  
   } catch (ClassNotFoundException e) {
@@ -88,7 +86,6 @@ public class SDGeneAnnotator extends JCasAnnotator_ImplBase {
   } catch (IOException e) {
     e.printStackTrace();
   }
-    System.out.println("I am in SDGeneAnnotator");
   }
   
   
@@ -107,7 +104,7 @@ public class SDGeneAnnotator extends JCasAnnotator_ImplBase {
       FSIterator<Annotation> it = aJCas.getAnnotationIndex(SentenceAnnotation.type).iterator();
       while(it.hasNext()){
         SentenceAnnotation tag =  (SentenceAnnotation)it.get();
-         String s = tag.getText();
+         String s = tag.getText();        
          //use confidence chunker of lingpipe
          Iterator<Chunk> iterator = chunker.nBestChunks(s.toCharArray(), 0, s.length(), 60);
          Chunk chunk;
