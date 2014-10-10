@@ -9,7 +9,7 @@
                 <nameValuePair>
                     <name>InputFile</name>
                     <value>
-                        <string>src/main/resources/data/hw2.in</string>
+                        <string/>
                     </value>
                 </nameValuePair>
             </configurationParameterSettings>
@@ -39,14 +39,6 @@
                 <timeout max="100000" default="-1"/>
             </errorHandling>
             <checkpoint batch="10000" time="1000ms"/>
-            <configurationParameterSettings>
-                <nameValuePair>
-                    <name>OutputFile</name>
-                    <value>
-                        <string>src/main/resources/data/hw2-ruiw1.out</string>
-                    </value>
-                </nameValuePair>
-            </configurationParameterSettings>
         </casProcessor>
     </casProcessors>
     <cpeConfig>

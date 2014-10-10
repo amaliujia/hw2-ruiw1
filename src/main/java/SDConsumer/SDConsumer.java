@@ -94,9 +94,6 @@ public class SDConsumer extends CasConsumer_ImplBase{
         start = start - parta;
         end = end - parta - partb - 1;
         fileWriter.append(abnerAnnotation.getSentenceID() + "|" + start+ " " + end + "|" + abnerAnnotation.getEntity() + "\n");
-//        fileWriter.append(abnerAnnotation.getEntity() + "\n");
-        //fileWriter.write(abnerAnnotation.getEntity() + "\n");
-        geneIterator.moveToNext(); 
       }
     }catch(Exception e){
       e.printStackTrace();

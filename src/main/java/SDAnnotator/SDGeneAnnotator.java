@@ -68,7 +68,8 @@ import edu.cmu.deiis.types.GeneAnnotation;
 
 public class SDGeneAnnotator extends JCasAnnotator_ImplBase {
   
-  private final static String dataset = "src/main/resources/SampleData/trainer"; //"src/main/resources/SampleData/ne-en-bio-genetag.HmmChunker";
+ // private final static String dataset = "src/main/resources/SampleData/trainer"; //"src/main/resources/SampleData/ne-en-bio-genetag.HmmChunker";
+  private String dataset;
   private File chunkerFile;
  // private Chunker chunker;
   private ConfidenceChunker chunker;
@@ -76,14 +77,13 @@ public class SDGeneAnnotator extends JCasAnnotator_ImplBase {
   
   public void initialize(UimaContext aContext)
           throws ResourceInitializationException{
-   chunkerFile = new File(dataset);
+  
+  // chunkerFile = new File(dataset);
    try {
-    chunker = (ConfidenceChunker) AbstractExternalizable.readObject(chunkerFile);
-  } catch (IOException e) {
-    // TODO Auto-generated catch block
+     chunker = (ConfidenceChunker)AbstractExternalizable.readResourceObject((String)aContext.getConfigParameterValue("GeneModel"));
+  } catch(IOException e) {
     e.printStackTrace();
   } catch (ClassNotFoundException e) {
-    // TODO Auto-generated catch block
     e.printStackTrace();
   }
     System.out.println("I am in SDGeneAnnotator-------------------------");
