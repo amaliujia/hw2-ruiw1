@@ -11,8 +11,8 @@ import org.apache.uima.jcas.tcas.Annotation;
 
 
 /** 
- * Updated by JCasGen Tue Oct 07 15:24:45 EDT 2014
- * XML source: /Users/amaliujia/Documents/workspace/hw2-ruiw1/src/main/resources/TypeSystems/deiis_types.xml
+ * Updated by JCasGen Fri Oct 10 11:17:37 EDT 2014
+ * XML source: /Users/amaliujia/Documents/workspace/hw2-test/src/main/resources/TypeSystems/deiis_types.xml
  * @generated */
 public class SDRuleBasedRecAnnotation extends Annotation {
   /** @generated

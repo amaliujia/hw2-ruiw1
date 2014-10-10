@@ -1,10 +1,7 @@
 package SDCollectionReader;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -32,29 +29,23 @@ public class SDFilesCollectionReader extends CollectionReader_ImplBase {
   private int index;
   private int num;
   private String[] sentencs;
-  private BufferedReader bufferedReader;
   
   /**
    * To initialize everything necessary.
    */
   public void initialize(){
+    System.out.println((String)getConfigParameterValue("InputFile"));
     inputfile = new File((String)getConfigParameterValue("InputFile"));
-    System.out.println(inputfile);
     String text = "";
     try {
-      //Scanner scanner = new Scanner(inputfile);
-      FileReader reader = new FileReader(inputfile);
-      bufferedReader = new BufferedReader(reader);
+      Scanner scanner = new Scanner(inputfile);
       int i = 0;
-      String s = "";
-      while((s = bufferedReader.readLine()) != null){
-         text += s;
+      while(scanner.hasNext()){
+         text += scanner.nextLine();
          text += "\n";
          i++;
       }
     } catch (FileNotFoundException e) {
-      e.printStackTrace();
-    } catch (IOException e) {
       e.printStackTrace();
     }
     sentencs = text.split("\\n");

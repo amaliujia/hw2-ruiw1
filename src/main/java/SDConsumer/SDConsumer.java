@@ -22,6 +22,7 @@ import org.apache.uima.resource.ResourceInitializationException;
 import org.apache.uima.resource.ResourceProcessException;
 import org.springframework.scripting.support.StaticScriptSource;
 
+import edu.stanford.nlp.io.EncodingPrintWriter.out;
 import SDAnnotator.SDSentenceAnnotator;
 import Types.ABNERAnnotation;
 import Types.SDGeneEntity;
@@ -46,6 +47,7 @@ public class SDConsumer extends CasConsumer_ImplBase{
    *          throws when resource initialization fails.
    */
   public void initialize(){
+    
     output = (String)getConfigParameterValue("OutputFile");
     try {
       fileWriter = new FileWriter(new File(output));//new BufferedWriter(new FileWriter(output));
@@ -93,7 +95,10 @@ public class SDConsumer extends CasConsumer_ImplBase{
         int partb = countBlanks(sentenceContent.substring(start, end));
         start = start - parta;
         end = end - parta - partb - 1;
+        System.out.println(abnerAnnotation.getSentenceID());
         fileWriter.append(abnerAnnotation.getSentenceID() + "|" + start+ " " + end + "|" + abnerAnnotation.getEntity() + "\n");
+
+        geneIterator.moveToNext(); 
       }
     }catch(Exception e){
       e.printStackTrace();

@@ -52,7 +52,7 @@ public class SDEvaluatorAnnotator extends JCasAnnotator_ImplBase{
    * @param aContexct 
    */
   public void initialize(UimaContext aContext){
-    System.out.println("I am in SDEvaluatorAnnotator-------------------------");
+    System.out.println("I am in SDEvaluatorAnnotator");
   }
 
   
@@ -64,7 +64,6 @@ public class SDEvaluatorAnnotator extends JCasAnnotator_ImplBase{
    *            Happens when wrongly use UIMA objects
    */
   public void process(JCas aJCas) throws AnalysisEngineProcessException {
-    
     HashMap<String, Annotation> abnerHashMap = new HashMap<String, Annotation>();
     HashMap<String, Annotation> lingpipeHashMap = new HashMap<String, Annotation>();
     HashMap<String, Annotation> intersectionHashMap = new HashMap<String, Annotation>();

@@ -40,7 +40,7 @@ public class SDABNERAnnotator extends JCasAnnotator_ImplBase{
   public void initialize(UimaContext aContext)
           throws ResourceInitializationException{
     
-    System.out.println("I am in ABNERTagger-------------------------");
+    System.out.println("I am in ABNERTagger");
     aABNERTagger = new Tagger(0);
   }
   
@@ -54,7 +54,7 @@ public class SDABNERAnnotator extends JCasAnnotator_ImplBase{
    *
    */
   public void process(JCas aJCas) throws AnalysisEngineProcessException {    
-     FSIterator<Annotation> sentenceIterator = aJCas.getAnnotationIndex(SentenceAnnotation.type).iterator();
+    FSIterator<Annotation> sentenceIterator = aJCas.getAnnotationIndex(SentenceAnnotation.type).iterator();
      while(sentenceIterator.hasNext()){
        //get sentence annotation, including sentence id and sentence content
        SentenceAnnotation aSentenceTag = (SentenceAnnotation)sentenceIterator.get();

@@ -9,7 +9,7 @@
     <vendor/>
     <configurationParameters>
       <configurationParameter>
-        <name>GeneModel</name>
+        <name>Gene</name>
         <type>String</type>
         <multiValued>false</multiValued>
         <mandatory>false</mandatory>
@@ -17,7 +17,7 @@
     </configurationParameters>
     <configurationParameterSettings>
       <nameValuePair>
-        <name>GeneModel</name>
+        <name>Gene</name>
         <value>
           <string>/trainer</string>
         </value>

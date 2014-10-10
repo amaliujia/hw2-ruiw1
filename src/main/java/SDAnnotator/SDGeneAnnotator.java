@@ -68,8 +68,7 @@ import edu.cmu.deiis.types.GeneAnnotation;
 
 public class SDGeneAnnotator extends JCasAnnotator_ImplBase {
   
- // private final static String dataset = "src/main/resources/SampleData/trainer"; //"src/main/resources/SampleData/ne-en-bio-genetag.HmmChunker";
-  private String dataset;
+  //private final static String dataset = "src/main/resources/SampleData/trainer"; //"src/main/resources/SampleData/ne-en-bio-genetag.HmmChunker";
   private File chunkerFile;
  // private Chunker chunker;
   private ConfidenceChunker chunker;
@@ -77,17 +76,19 @@ public class SDGeneAnnotator extends JCasAnnotator_ImplBase {
   
   public void initialize(UimaContext aContext)
           throws ResourceInitializationException{
-  
   // chunkerFile = new File(dataset);
+    super.initialize(aContext);
    try {
-     chunker = (ConfidenceChunker)AbstractExternalizable.readResourceObject((String)aContext.getConfigParameterValue("GeneModel"));
-  } catch(IOException e) {
-    e.printStackTrace();
+    //chunker = (ConfidenceChunker) AbstractExternalizable.readObject(chunkerFile);
+     System.out.println((String) aContext.getConfigParameterValue("Gene"));
+     chunker = (ConfidenceChunker)AbstractExternalizable.readResourceObject(SDGeneAnnotator.class, (String) aContext.getConfigParameterValue("Gene"));
+ 
   } catch (ClassNotFoundException e) {
     e.printStackTrace();
+  } catch (IOException e) {
+    e.printStackTrace();
   }
-    System.out.println("I am in SDGeneAnnotator-------------------------");
-
+    System.out.println("I am in SDGeneAnnotator");
   }
   
   
@@ -101,8 +102,6 @@ public class SDGeneAnnotator extends JCasAnnotator_ImplBase {
    *
    */
    public void process(JCas aJCas) throws AnalysisEngineProcessException {
-    // System.out.println("GeneAnnotator");
-
     // Use UMM chunker to extract gene terms
      int thisTime = 0;
       FSIterator<Annotation> it = aJCas.getAnnotationIndex(SentenceAnnotation.type).iterator();

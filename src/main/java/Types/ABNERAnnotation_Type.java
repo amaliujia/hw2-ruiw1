@@ -14,7 +14,7 @@ import org.apache.uima.cas.Feature;
 import org.apache.uima.jcas.tcas.Annotation_Type;
 
 /** 
- * Updated by JCasGen Tue Oct 07 15:24:45 EDT 2014
+ * Updated by JCasGen Fri Oct 10 11:17:37 EDT 2014
  * @generated */
 public class ABNERAnnotation_Type extends Annotation_Type {
   /** @generated 
