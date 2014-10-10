@@ -96,7 +96,7 @@
     </dependency>
 	</dependencies>
 	<scm>
-		<connection>scm:git:git:@github.com:amaliujia/hw2-test.git</connection>
-		<developerConnection>scm:git:git:@github.com:amaliujia/hw2-test.git</developerConnection>
+		<connection>scm:git:git:@github.com:amaliujia/hw2-ruiw1.git</connection>
+		<developerConnection>scm:git:git:@github.com:amaliujia/hw2-ruiw1.git</developerConnection>
 	</scm>
 </project>
